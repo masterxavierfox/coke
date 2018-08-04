@@ -27,6 +27,7 @@ func App() *buffalo.App {
 		app = buffalo.New(buffalo.Options{
 			Env:         ENV,
 			SessionName: "_coke_session",
+			LooseSlash:  true,
 		})
 		// Automatically redirect to SSL
 		app.Use(forceSSL())
@@ -49,6 +50,7 @@ func App() *buffalo.App {
 
 		app.GET("/", HomeHandler)
 
+		app.Resource("/users", UsersResource{})
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
 
